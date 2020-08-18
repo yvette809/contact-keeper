@@ -99,6 +99,8 @@ const login = async formData => {
 }
 
 //logout
+
+const logout = ()=> dispatch({type:LOGOUT})
 // clear Errors
 
 const clearErrors = ()=> dispatch({
