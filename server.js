@@ -6,7 +6,7 @@ const usersRouter = require("./routes/users.js")
 const contactRouter = require("./routes/contacts.js")
 const authRouter = require("./routes/auth.js")
 const connectDB = require('./config/db')
-
+const path = require ("path")
 // connect Database
 //connectDB()
 
@@ -19,6 +19,16 @@ server.use(express.json())
 server.use("/api/users", usersRouter)
 server.use("/api/contacts", contactRouter)
 server.use("/api/auth", authRouter)
+
+// serve static assets in production
+if(process.env.NODE_ENV ==='production'){
+    // set static folder
+    server.use(express.static('client/build'));
+
+    server.get('*', (req,res)=> res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+         
+    )
+}
 
 
 const port = process.env.PORT || 5001
